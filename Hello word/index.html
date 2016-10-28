@@ -50,7 +50,11 @@
 					if (!contato.selecionado) return contato;
 				});
 			}
-			
+			$scope.isContatoSelecionado = function (contatos) {
+				return contatos.some(function (contato) {
+					return contato.selecionado;
+				});
+			};
 
 		});
 	</script>
@@ -59,7 +63,7 @@
 	<div class="jumbotron">
 		<h3>{{app}}</h3>
 		{{contatos}}
-		<table class="table">
+		<table class="table" ng-show="contatos.length > 0">
 			<tr>
 				<th></th>
 				<th>Nome</th>
@@ -82,7 +86,7 @@
 			<option value="">Selecione uma operadora</option>
 		</select>
 		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar contato</button>
-		<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)">Apagar contatos</button>
+		<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
 	</div>
 </body>
 </html>
